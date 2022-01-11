@@ -23,7 +23,9 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     bool isSupport = await FlutterMsaSdk.isSupport();
+    print('isSupport: $isSupport');
     String oaid = await FlutterMsaSdk.getOAID();
+    print('oaid: $oaid');
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -44,8 +46,14 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('isSupport: $_isSupport\n'
-              'OAID: $_oaid\n'),
+          child: Column(
+            children: [
+              Text('isSupport: $_isSupport'),
+              TextFormField(
+                  initialValue: _oaid,
+                  decoration: InputDecoration(label: Text('OAID')))
+            ],
+          ),
         ),
       ),
     );
