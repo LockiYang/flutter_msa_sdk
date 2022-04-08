@@ -6,17 +6,19 @@ import 'package:flutter/services.dart';
 class FlutterMsaSdk {
   static const MethodChannel _channel = const MethodChannel('flutter_msa_sdk');
 
-  static Future<String> getOAID() {
+  static Future<String> getOAID() async {
     if (defaultTargetPlatform == TargetPlatform.android) {
-      return _channel.invokeMethod<String>('getOAID');
+      return await _channel.invokeMethod<String>('getOAID') ?? "";
+    } else {
+      return "";
     }
-    return Future.value('');
   }
 
-  static Future<bool> isSupport() {
+  static Future<bool> isSupport() async {
     if (defaultTargetPlatform == TargetPlatform.android) {
-      return _channel.invokeMethod<bool>('isSupport');
+      return await _channel.invokeMethod<bool>('isSupport') ?? false;
+    } else {
+      return false;
     }
-    return Future.value(false);
   }
 }

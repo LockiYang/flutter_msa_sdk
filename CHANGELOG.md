@@ -1,3 +1,7 @@
+## 3.1.0
+
+* Null safety supported.
+
 ## 3.0.3
 
 * Add HONOR, REDMI, IQOO, REALME etc support.
@@ -27,3 +31,4 @@
 ## 1.0.10
 
 * Initial release.
+

@@ -11,28 +11,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _isSupport;
-  String _oaid;
+  bool _isSupport = false;
+  String _oaid = "";
+  TextEditingController _controller =
+      TextEditingController(text: 'Initial value');
 
   @override
   void initState() {
-    super.initState();
     initPlatformState();
+    super.initState();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     bool isSupport = await FlutterMsaSdk.isSupport();
+    print('isSupport: $isSupport');
     String oaid = await FlutterMsaSdk.getOAID();
+    print('oaid: $oaid');
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    // if (!mounted) return;
 
     setState(() {
       _isSupport = isSupport;
       _oaid = oaid;
+
+      _controller.text = _oaid;
     });
   }
 
@@ -44,8 +50,14 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('isSupport: $_isSupport\n'
-              'OAID: $_oaid\n'),
+          child: Column(
+            children: [
+              Text('isSupport: $_isSupport'),
+              TextFormField(
+                  controller: _controller,
+                  decoration: InputDecoration(label: Text('OAID')))
+            ],
+          ),
         ),
       ),
     );
