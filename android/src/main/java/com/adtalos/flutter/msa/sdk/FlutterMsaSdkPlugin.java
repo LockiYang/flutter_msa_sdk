@@ -67,7 +67,7 @@ public class FlutterMsaSdkPlugin implements FlutterPlugin, MethodCallHandler {
                     }
 
                     @Override
-                    public void onOAIDGetError(@NonNull Throwable error) {
+                    public void onOAIDGetError(@NonNull Exception error) {
                         result.success("ooxx");
                     }
                 });
